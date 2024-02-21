@@ -29,5 +29,4 @@ L'esercizio viene considerato svolto se fate anche le rotte index e show per i p
 ### Bonus
 
 Personalizzare la grafica del gestionale.
-
 Buon lavoro!
