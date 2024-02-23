@@ -7,7 +7,11 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <h4 class="card-title">{{ $project['name'] }}</h4>
+                        <div class="d-flex gap-3 justify-content-between">
+                            <h4 class="card-title">{{ $project['name'] }}</h4>
+                            <a href="{{ Route('admin.projects.edit', ['project' => $project->id]) }}"><button
+                                    class="btn btn-danger">EDIT</button></a>
+                        </div>
                         <h6 class="card-subtitle mb-2 text-body-secondary">{{ $project['assignment_date'] }}</h6>
                         <p class="card-text">{{ $project['description'] }}</p>
                         <p class="card-text"><strong>Supervisors: </strong>{{ $project['supervisors'] }}</p>
