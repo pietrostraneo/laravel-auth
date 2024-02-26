@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -40,6 +41,11 @@ class ProjectController extends Controller
     {
         $addproject = $request->all();
         $project = new Project;
+
+        if ($request->hasFile('preview')) {
+            $path = Storage::disk('public')->put('project_previews', $addproject['preview']);
+            $addproject['preview'] = $path;
+        }
 
         $project->fill($addproject);
         $project->save();
@@ -79,6 +85,16 @@ class ProjectController extends Controller
     {
         $editproject = $request->all();
 
+        if ($request->hasFile('preview')) {
+
+            if ($project->preview != null) {
+                Storage::disk('public')->delete($project->preview);
+            }
+
+            $path = Storage::disk('public')->put('project_previews', $editproject['preview']);
+            $editproject['preview'] = $path;
+        }
+
         $project->fill($editproject);
         $project->update();
 
@@ -93,6 +109,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->preview != null) {
+            Storage::disk('public')->delete($project->preview);
+        }
         $project->delete();
         return redirect()->route('admin.projects.index');
     }

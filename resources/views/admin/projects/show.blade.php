@@ -13,6 +13,9 @@
                                     class="btn btn-danger">EDIT</button></a>
                         </div>
                         <h6 class="card-subtitle mb-2 text-body-secondary">{{ $project['assignment_date'] }}</h6>
+                        @if ($project->preview != null)
+                            <img src="{{ asset('/storage/' . $project->preview) }}" alt="{{ $project->name }}">
+                        @endif
                         <p class="card-text">{{ $project['description'] }}</p>
                         <p class="card-text"><strong>Supervisors: </strong>{{ $project['supervisors'] }}</p>
                         <p class="card-text"><strong>Framework: </strong>{{ $project['framework'] }}</p>
