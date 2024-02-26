@@ -25,13 +25,16 @@
                                 </td>
                                 <td>{{ $project['assignment_date'] }}</td>
                                 <td>
-                                    <form action="{{ route('admin.projects.destroy', ['project' => $project->id]) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                    <div class="d-flex gap-1">
+
+                                        <button type="submit" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#delete-{{ $project->id }}"><i
                                                 class="fas fa-trash-can"></i></button>
-                                    </form>
+
+                                        <a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}"><button
+                                                class="btn btn-warning btn-sm"><i
+                                                    class="fas fa-pen-to-square"></i></button></a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -47,4 +50,6 @@
             </div>
         </div>
     </div>
+
+    @include('admin.projects.modal')
 @endsection
